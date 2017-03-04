@@ -51,7 +51,7 @@ public class BQNote {
             content = content + " " + getRandomString();
         }
 
-        while(title.startsWith(" ")){
+        while (title.startsWith(" ")) {
             title = title.substring(1);
         }
 
@@ -68,7 +68,7 @@ public class BQNote {
         int randomLength = generator.nextInt(5);
         char tempChar;
         for (int i = 0; i < randomLength; i++) {
-            tempChar = (char) (Math.random()*26 + 'a');
+            tempChar = (char) (Math.random() * 26 + 'a');
             randomStringBuilder.append(tempChar);
         }
 

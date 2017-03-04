@@ -3,7 +3,6 @@ package com.gcv.bqevernote;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 public class NotesManager {
 
@@ -30,8 +28,6 @@ public class NotesManager {
         this.activity = activity;
         this.listView = listView;
 
-        values.add(0, "");
-
         mockNotes();
         populateValues();
 
@@ -44,7 +40,7 @@ public class NotesManager {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
+                loadNote(position);
             }
         });
     }
@@ -59,8 +55,8 @@ public class NotesManager {
     private void loadNote(int position) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(values.get(position));
-        dialogBuilder.setMessage("Este es el contenido de: " + values.get(position).toLowerCase());
+        dialogBuilder.setTitle(notes.get(position).getTitle());
+        dialogBuilder.setMessage(notes.get(position).getContent());
         dialogBuilder.setCancelable(true);
 
         dialogBuilder.setPositiveButton(
@@ -91,19 +87,6 @@ public class NotesManager {
         for (int i = 0; i < 15; i++) {
             notes.add(new BQNote());
         }
-    }
-
-    public static String getRandomString() {
-
-        Random generator = new Random();
-        StringBuilder randomStringBuilder = new StringBuilder();
-        int randomLength = generator.nextInt(5);
-        char tempChar;
-        for (int i = 0; i < randomLength; i++) {
-            tempChar = (char) (generator.nextInt(96) + 32);
-            randomStringBuilder.append(tempChar);
-        }
-        return randomStringBuilder.toString();
     }
 }
 
