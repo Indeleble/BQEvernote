@@ -20,8 +20,7 @@ public class NotesManager {
 
     final ListView listView;
     Activity activity;
-    ArrayAdapter<String> adapter;
-    List<String> values = new ArrayList<>();
+    ArrayAdapter<BQNote> adapter;
     List<BQNote> notes = new ArrayList<>();
 
     public NotesManager(ListView listView, Activity activity) {
@@ -30,10 +29,9 @@ public class NotesManager {
         this.listView = listView;
 
         mockNotes();
-        populateValues();
 
         adapter = new ArrayAdapter<>(activity,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                android.R.layout.simple_list_item_1, android.R.id.text1, notes);
 
         listView.setAdapter(adapter);
 
@@ -44,13 +42,6 @@ public class NotesManager {
                 loadNote(position);
             }
         });
-    }
-
-    private void populateValues() {
-        values.clear();
-        for (BQNote note : notes) {
-            values.add(note.getTitle());
-        }
     }
 
     private void loadNote(int position) {
@@ -74,10 +65,19 @@ public class NotesManager {
 
     public void sortNotesAlphabetically() {
 
-        Collections.sort(values, new Comparator<String>() {
+        Collections.sort(notes, new Comparator<BQNote>() {
             @Override
-            public int compare(String s1, String s2) {
-                return s1.compareTo(s2);
+            public int compare(BQNote s1, BQNote s2) {
+                return s1.getTitle().compareTo(s2.getTitle());
+            }
+        });
+        adapter.notifyDataSetChanged();
+    }
+
+    public void sortNotesByDate() {
+        Collections.sort(notes, new Comparator<BQNote>() {
+            public int compare(BQNote m1, BQNote m2) {
+                return m1.getDate().compareTo(m2.getDate());
             }
         });
         adapter.notifyDataSetChanged();
@@ -91,10 +91,7 @@ public class NotesManager {
     }
 
     public void addNote(String title, String content) {
-
         notes.add(new BQNote(title, content));
-        values.add(title);
-
     }
 }
 

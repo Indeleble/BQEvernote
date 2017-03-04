@@ -3,12 +3,16 @@ package com.gcv.bqevernote.model;
 
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class BQNote {
 
     String title;
     String content;
+
+    Date date = new Date();
 
     public BQNote() {
         populate();
@@ -19,8 +23,12 @@ public class BQNote {
         this.content = content;
     }
 
-    public BQNote(String title) {
-        this.title = title;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getTitle() {
@@ -73,5 +81,13 @@ public class BQNote {
         }
 
         return randomStringBuilder.toString();
+    }
+
+    @Override
+    public String toString(){
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-ss.SSS");
+
+        return title + "    " + dateFormat.format(date);
     }
 }

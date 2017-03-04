@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements EvernoteLoginFrag
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TO-DO mEvernoteSession.authenticate(MainActivity.this);
-                Intent intent_1 = new Intent(MainActivity.this, NotesActivity.class);
-                startActivity(intent_1);
+                mEvernoteSession.authenticate(MainActivity.this);
+//                Intent intent_1 = new Intent(MainActivity.this, NotesActivity.class);
+//                startActivity(intent_1);
             }
         });
     }
@@ -35,14 +35,11 @@ public class MainActivity extends AppCompatActivity implements EvernoteLoginFrag
     @Override
     public void onLoginFinished(boolean successful) {
         if (successful) {
-            // handle success
-            Toast.makeText(this, "oleeeeeeeeeeeeeeee", Toast.LENGTH_SHORT).show();
             Intent intent_1 = new Intent(MainActivity.this, NotesActivity.class);
             startActivity(intent_1);
 
         } else {
-            // handle failure
-            Toast.makeText(this, "noooooooooooo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unable", Toast.LENGTH_SHORT).show();
         }
 
     }
