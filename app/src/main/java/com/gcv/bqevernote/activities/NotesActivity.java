@@ -1,4 +1,4 @@
-package com.gcv.bqevernote;
+package com.gcv.bqevernote.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+
+import com.gcv.bqevernote.utils.NotesManager;
+import com.gcv.bqevernote.R;
 
 public class NotesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

@@ -1,4 +1,4 @@
-package com.gcv.bqevernote;
+package com.gcv.bqevernote.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.evernote.client.android.EvernoteSession;
 import com.evernote.client.android.login.EvernoteLoginFragment;
+import com.gcv.bqevernote.R;
 
 public class MainActivity extends AppCompatActivity implements EvernoteLoginFragment.ResultCallback {
 

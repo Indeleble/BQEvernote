@@ -1,4 +1,4 @@
-package com.gcv.bqevernote;
+package com.gcv.bqevernote.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
