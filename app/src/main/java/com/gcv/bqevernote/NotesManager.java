@@ -8,8 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class NotesManager {
@@ -24,10 +25,10 @@ public class NotesManager {
         this.activity = activity;
         this.listView = listView;
 
-        values.add("");
-        values.add("Nota de test 1");
-        values.add("Nota de test 2");
-        values.add("Nota de test 3");
+        values.add(0, "");
+        values.add("b Nota de test 1");
+        values.add("a Nota de test 2");
+        values.add("c Nota de test 3");
 
         adapter = new ArrayAdapter<>(activity,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
@@ -38,7 +39,7 @@ public class NotesManager {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                loadNote(position);
+
             }
         });
     }
@@ -62,13 +63,15 @@ public class NotesManager {
         alert11.show();
     }
 
-    public void updateList(List<String> values) {
+    public void sortNotesAlphabetically() {
 
-        adapter.clear();
-        values.add("");
-        adapter.addAll(values);
+        Collections.sort(values, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareTo(s2);
+            }
+        });
         adapter.notifyDataSetChanged();
-
     }
 }
 

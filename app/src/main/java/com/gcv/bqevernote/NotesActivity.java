@@ -14,13 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.evernote.client.android.EvernoteSession;
-import com.evernote.client.android.asyncclient.EvernoteNoteStoreClient;
-import com.evernote.edam.error.EDAMSystemException;
-import com.evernote.edam.error.EDAMUserException;
-import com.evernote.edam.type.Notebook;
-import com.evernote.thrift.TException;
-
 public class NotesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,6 +56,7 @@ public class NotesActivity extends AppCompatActivity
 //            e.printStackTrace();
 //        }
         notesManager = new NotesManager((ListView) findViewById(R.id.list2), this);
+
     }
 
     @Override
@@ -96,7 +90,9 @@ public class NotesActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_title) {
+        if (id == R.id.nav_name) {
+
+            notesManager.sortNotesAlphabetically();
 
         } else if (id == R.id.nav_date) {
 
