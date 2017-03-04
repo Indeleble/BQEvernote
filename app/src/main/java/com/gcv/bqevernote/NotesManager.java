@@ -3,15 +3,19 @@ package com.gcv.bqevernote;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.gcv.bqevernote.model.BQNote;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class NotesManager {
 
@@ -19,6 +23,7 @@ public class NotesManager {
     Activity activity;
     ArrayAdapter<String> adapter;
     List<String> values = new ArrayList<>();
+    List<BQNote> notes = new ArrayList<>();
 
     public NotesManager(ListView listView, Activity activity) {
 
@@ -26,9 +31,9 @@ public class NotesManager {
         this.listView = listView;
 
         values.add(0, "");
-        values.add("b Nota de test 1");
-        values.add("a Nota de test 2");
-        values.add("c Nota de test 3");
+
+        mockNotes();
+        populateValues();
 
         adapter = new ArrayAdapter<>(activity,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
@@ -42,6 +47,13 @@ public class NotesManager {
 
             }
         });
+    }
+
+    private void populateValues() {
+
+        for (BQNote note : notes) {
+            values.add(note.getTitle());
+        }
     }
 
     private void loadNote(int position) {
@@ -72,6 +84,26 @@ public class NotesManager {
             }
         });
         adapter.notifyDataSetChanged();
+    }
+
+    private void mockNotes() {
+
+        for (int i = 0; i < 15; i++) {
+            notes.add(new BQNote());
+        }
+    }
+
+    public static String getRandomString() {
+
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(5);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++) {
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+        return randomStringBuilder.toString();
     }
 }
 
