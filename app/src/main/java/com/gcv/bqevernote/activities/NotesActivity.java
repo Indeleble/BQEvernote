@@ -1,9 +1,9 @@
 package com.gcv.bqevernote.activities;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,11 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.gcv.bqevernote.utils.NotesManager;
 import com.gcv.bqevernote.R;
+import com.gcv.bqevernote.utils.CustomDialog;
+import com.gcv.bqevernote.utils.NotesManager;
 
 public class NotesActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, CustomDialog.CustomDialogOnResultListener {
 
     NotesManager notesManager;
 
@@ -29,14 +30,8 @@ public class NotesActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.create_note);
+        fab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,7 +53,7 @@ public class NotesActivity extends AppCompatActivity
 //        } catch (TException e) {
 //            e.printStackTrace();
 //        }
-        notesManager = new NotesManager((ListView) findViewById(R.id.list2), this);
+        notesManager = new NotesManager((ListView) findViewById(R.id.list), this);
 
     }
 
@@ -104,5 +99,21 @@ public class NotesActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        FragmentManager fm = getFragmentManager();
+
+        CustomDialog editNameDialogFragment = CustomDialog.newInstance();
+        editNameDialogFragment.setOnNoteCreatedListener(this);
+
+        editNameDialogFragment.show(fm, "Custom dialog");
+    }
+
+    @Override
+    public void onNoteCreatedResult(String title, String content) {
+        notesManager.addNote(title, content);
     }
 }

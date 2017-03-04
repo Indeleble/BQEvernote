@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.gcv.bqevernote.R;
 import com.gcv.bqevernote.model.BQNote;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class NotesManager {
     }
 
     private void populateValues() {
-
+        values.clear();
         for (BQNote note : notes) {
             values.add(note.getTitle());
         }
@@ -60,7 +61,7 @@ public class NotesManager {
         dialogBuilder.setCancelable(true);
 
         dialogBuilder.setPositiveButton(
-                "Cerrar",
+                R.string.cancel,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -87,6 +88,13 @@ public class NotesManager {
         for (int i = 0; i < 15; i++) {
             notes.add(new BQNote());
         }
+    }
+
+    public void addNote(String title, String content) {
+
+        notes.add(new BQNote(title, content));
+        values.add(title);
+
     }
 }
 
